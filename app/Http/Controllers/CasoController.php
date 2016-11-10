@@ -47,28 +47,49 @@ class CasoController extends Controller
     public function crear(Request $request)
     {
         $datos = $request->all();
-        $caso = new Caso();
+
+        if (isset($datos['caso']['id'])) {
+            $caso = Caso::find($datos['caso']['id']);
+        } else {
+            $caso = new Caso();
+        }
+
         $caso->fill($datos['caso']);
         $caso->fecha = new Carbon($caso->fecha);
         $caso->fecha->toDateString();
         $caso->save();
 
         if($caso->id){
-            $demandante = new Demandante();
+            if (isset($datos['Demandante']['id'])) {
+                $demandante = Demandante::find($datos['Demandante']['id']);
+            } else {
+                $demandante = new Demandante();
+            }
+
             $demandante->fill($datos['Demandante']);
             $demandante->caso_id = $caso->id;
             $demandante->fecha_nacimiento = new Carbon($demandante->fecha_nacimiento);
             $demandante->fecha_nacimiento->toDateString();
             $demandante->save();
 
-            $demandado = new Demandado();
+            if (isset($datos['Demandado']['id'])) {
+                $demandado = Demandado::find($datos['Demandado']['id']);
+            } else {
+                $demandado = new Demandado();
+            }
+
             $demandado->fill($datos['Demandado']);
             $demandado->caso_id = $caso->id;
             $demandado->fecha_nacimiento = new Carbon($demandado->fecha_nacimiento);
             $demandado->fecha_nacimiento->toDateString();
             $demandado->save();
 
-            $cita = new Cita();
+            if (isset($datos['Cita']['id'])) {
+                $cita = Cita::find($datos['Cita']['id']);
+            } else {
+                $cita = new Cita();
+            }
+
             $cita->fill($datos['Cita']);
             $cita->caso_id = $caso->id;
             $cita->user_id = $caso->user_id;

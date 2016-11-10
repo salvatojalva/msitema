@@ -85,6 +85,11 @@
 							templateUrl: '../views/denuncia/crear.html',
 							controller: 'DenunciaCreateController as user'
 						})
+                        .state('denuncia.edit', {
+                            url: '/edit/:casoID',
+                            templateUrl: '../views/denuncia/crear.html',
+                            controller: 'DenunciaEditController as user'
+                        })
 						.state('denuncia.ver', {
 							url: '/ver/:casoID',
 							templateUrl: '../views/denuncia/ver.html',
